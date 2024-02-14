@@ -1,7 +1,9 @@
+import { useSelector } from "react-redux";
 import { Outlet, Navigate } from "react-router-dom";
 import Layout from "src/components/layout/Layout";
 
 const PrivateRoutes = () => {
+  const { isAuthenticated } = useSelector((state) => state.auth)
   /**
    * you can check if user is logged in or not
    * if you don't have user auth then hit GET request to server with token and get user logged in status
@@ -23,14 +25,14 @@ const PrivateRoutes = () => {
   */
 
   //temp variable => change below variable to see login and sign up page
-  const authenticated = false;
+  // const authenticated = false;
 
-  return authenticated ? (
+  return isAuthenticated ? (
     <Layout>
       <Outlet />
     </Layout>
   ) : (
-    <Navigate to="/auth/login" />
+    <Navigate to="/auth" />
   );
 };
 

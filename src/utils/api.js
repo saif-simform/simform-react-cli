@@ -41,16 +41,17 @@ export const API = axios.create({
  */
 // Define a function to refresh the token
 const refreshToken = async () => {
-  //   try {
-  //     const response = await axios.post("YOUR_REFRESH_TOKEN_ENDPOINT", {
-  //       refreshToken: Cookies.get("refreshToken"), // Load the refreshToken from cookies or if https cookie then just make get request to your endpoint
-  //     });
-  //     const newAccessToken = response.data.accessToken;
-  //     Cookies.set("accessToken", newAccessToken, { path: "/" });
-  //     return newAccessToken;
-  //   } catch (error) {
-  //     throw error;
-  //   }
+  try {
+    const response = await API.post("/auth/refresh-token", {
+      refreshToken: Cookies.get("refreshToken"), // Load the refreshToken from cookies or if https cookie then just make get request to your endpoint
+    }, { withoutAuth: true });
+
+    const newAccessToken = response.data.accessToken;
+    Cookies.set("accessToken", newAccessToken, { path: "/" });
+    return newAccessToken;
+  } catch (error) {
+    throw error;
+  }
 };
 
 // A request interceptor to inject the access token into requests
@@ -96,8 +97,12 @@ API.interceptors.response.use(
 
 //post type
 
-//get posts
-export const getPosts = async () => API.get("/posts", { withoutAuth: true }).then((res) => res.data);
 
 //create post
 export const createPost = (body) => API.post("/item/create", body);
+
+//login
+export const login = (data) => API.post('/auth/login', data)
+
+//get posts
+export const getPosts = async () => API.get("/api/posts").then((res) => res.data);

@@ -2,8 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPosts } from "src/utils/api";
 export const getPostApi = createAsyncThunk("posts", async () => {
   try {
-    const response = await getPosts();
-    return response;
+    const { data } = await getPosts();
+    return { data };
   } catch (error) {
     // you can create util functon to handle errors.
     return Promise.reject(error);
@@ -21,7 +21,7 @@ export const postSlice = createSlice({
     });
     builder.addCase(getPostApi.fulfilled, (state, action) => {
       state.loading = false;
-      state.posts = action.payload;
+      state.posts = action.payload.data;
       state.error = "";
     });
     builder.addCase(getPostApi.rejected, (state, action) => {

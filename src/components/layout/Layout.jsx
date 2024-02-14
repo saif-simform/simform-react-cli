@@ -1,9 +1,18 @@
+import Cookies from "js-cookie";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../../store/features/authSlice";
 import styles from "./Layout.module.css";
 
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    Cookies.remove('accessToken')
+    dispatch(logout())
+  }
   return (
     <main className={styles.main}>
       <nav className={styles.nav}>
@@ -28,12 +37,17 @@ const Layout = ({ children }) => {
                   About
                 </Link>
               </li>
+              <li>
+                <Link to={"/"} className={styles.nav_link} onClick={() => handleLogout()}>
+                  Logout
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
       </nav>
       {children}
-    </main>
+    </main >
   );
 };
 

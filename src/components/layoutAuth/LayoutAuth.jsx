@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const LayoutAuth = () => {
   return (
@@ -8,7 +8,7 @@ const LayoutAuth = () => {
         <div>
           <ul>
             <li>
-              <Link to={"/auth/signin"}>Sign In</Link>
+              <Link to={"/auth/login"}>Sign In</Link>
             </li>
             <li>
               <Link to={"/auth/signup"}>Sign up</Link>
@@ -16,6 +16,7 @@ const LayoutAuth = () => {
           </ul>
         </div>
       </div>
+      <Outlet></Outlet>
     </div>
   );
 };

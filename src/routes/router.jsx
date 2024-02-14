@@ -57,18 +57,19 @@ const router = createBrowserRouter(
       >
         <Route
           index
-          path="signup"
+          path="login"
           element={
             <SuspenseErrorBoundary>
-              <Register />
+              <Login />
             </SuspenseErrorBoundary>
           }
         />
         <Route
-          path="signin"
+          index
+          path="signup"
           element={
             <SuspenseErrorBoundary>
-              <Login />
+              <Register />
             </SuspenseErrorBoundary>
           }
         />
